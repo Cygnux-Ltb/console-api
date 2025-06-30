@@ -1,6 +1,6 @@
 package io.cygnux.console.api.wrap;
 
-import io.cygnux.console.api.request.TradingSwitchesReq;
+import io.cygnux.console.api.req.TradingSwitchesReq;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
