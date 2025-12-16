@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class InboxMessage {
 
-    private String title;
+    private int code;
 
     private String content;
 

@@ -1,62 +1,71 @@
 package io.cygnux.console.api.wrap;
 
 import io.mercury.common.codec.Envelope;
+import org.eclipse.collections.api.map.MutableMap;
+import org.eclipse.collections.impl.collector.Collectors2;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum OutboxTitle implements Envelope {
 
-    HEARTBEAT,
+    HEARTBEAT(1,1),
 
-    BARS,
+    INIT_CONFIG(2,1),
 
-    SYS_INFO,
+    BARS(0,1),
 
-    SYS_STRATEGY,
+    SYS_INFO(0,1),
 
-    STRATEGY,
+    SYS_STRATEGY(0,1),
 
-    STRATEGY_PARAM,
+    STRATEGY(0,1),
 
-    STRATEGY_SYMBOL,
+    STRATEGY_PARAM(0,1),
 
-    STRATEGY_INSTRUMENT_PNL_DAILY,
+    STRATEGY_SYMBOL(0,1),
 
-    SYMBOL_INFO,
+    STRATEGY_INSTRUMENT_PNL_DAILY(0,1),
 
-    SYMBOL_TRADING_FEE,
+    SYMBOL_INFO(0,1),
 
-    SYMBOL_TRADING_PERIOD,
+    SYMBOL_TRADING_FEE(0,1),
 
-    TRADABLE_INSTRUMENT,
+    SYMBOL_TRADING_PERIOD(0,1),
 
-    INIT_FINISH,
+    TRADABLE_INSTRUMENT(0,1),
 
-    STRATEGY_SWITCH,
+    INIT_FINISH(0,1),
 
-    UPDATE_STRATEGY_PARAMS,
+    STRATEGY_SWITCH(0,1),
 
-    END_BARS,
+    UPDATE_STRATEGY_PARAMS(0,1),
 
-    UPDATE_STRATEGY_SIGNALS,
+    END_BARS(0,1),
 
-    STRATEGY_SIGNAL,
+    UPDATE_STRATEGY_SIGNALS(0,1),
 
-    SIGNAL,
+    STRATEGY_SIGNAL(0,1),
 
-    SIGNAL_PARAM,
+    SIGNAL(0,1),
 
-    SIGNAL_SYMBOL,
+    SIGNAL_PARAM(0,1),
 
-    INIT_CONFIG,
+    SIGNAL_SYMBOL(0,1),
 
     ;
 
-    private static final Map<String, OutboxTitle> MAP =
-            Stream.of(OutboxTitle.values()).collect(Collectors.toMap(OutboxTitle::name, value -> value));
+    private final int code;
+    private final int version;
+
+    private static final MutableMap<String, OutboxTitle> MAP =
+            Stream.of(OutboxTitle.values())
+                    .collect(Collectors2.toMap(OutboxTitle::name, value -> value));
+
+    OutboxTitle(int code, int version) {
+        this.code = code;
+        this.version = version;
+    }
 
     public static OutboxTitle checkout(@Nonnull String name) {
         OutboxTitle value;
@@ -67,12 +76,12 @@ public enum OutboxTitle implements Envelope {
 
     @Override
     public int getCode() {
-        return 0;
+        return code;
     }
 
     @Override
     public int getVersion() {
-        return 1;
+        return version;
     }
 
 }
